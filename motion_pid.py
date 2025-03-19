@@ -15,7 +15,7 @@ distance_sensors = DistanceSensors(i2c_bus=1, sda_pin=14, scl_pin=15)  # Adjust 
 # PID Controller for wall correction
 distance_pid = PID(kp=0.4, ki=0.0, kd=0.2)
 
-TARGET_DISTANCE = 35  # mm, desired distance from both walls
+TARGET_DISTANCE = 35  # in millimeters, desired distance from both walls 
 
 def move_continuous():
     """
