@@ -19,7 +19,7 @@ TARGET_DISTANCE = 35  # in millimeters, desired distance from both walls
 
 def move_continuous():
     """
-    Moves the bot continuously while maintaining a distance of 3.5 cm from both walls using PID.
+    Moves the robot continuously while maintaining a distance of 3.5 cm from both walls using PID.
     """
     while True:
         distances,values = distance_sensors.read_distances()
