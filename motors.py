@@ -37,19 +37,16 @@ class MotorControl:
         print("Motor system initialized.")
 
     # Encoder interrupt function for Motor 1
-    def update_encoder1(self, pin):
+    def update_encoder1(self,Pin):
         self.Encodervalue1 += 1 if self.EncoderPinA1.value() == self.EncoderPinB1.value() else -1
 
     # Encoder interrupt function for Motor 2
-    def update_encoder2(self, pin):
+    def update_encoder2(self,Pin):
         self.Encodervalue2 += 1 if self.EncoderPinA2.value() != self.EncoderPinB2.value() else -1
 
     # Unified move function
-    def move(self, dir1, dir2, pulses):
-        self.Encodervalue1 = 0
-        self.Encodervalue2 = 0
-
-        # Set motor directions
+    def move(self, dir1, dir2):
+        
         self.ForwardPin1.value(1 if dir1 == 1 else 0)
         self.BackwardPin1.value(1 if dir1 == -1 else 0)
         self.PWM1.duty_u16(int(self.speed * 65535 / 100) if dir1 else 0)
@@ -57,14 +54,6 @@ class MotorControl:
         self.ForwardPin2.value(1 if dir2 == 1 else 0)
         self.BackwardPin2.value(1 if dir2 == -1 else 0)
         self.PWM2.duty_u16(int(self.speed * 65535 / 100) if dir2 else 0)
-
-        # Wait until target pulses are reached
-        if pulses:
-            while abs(self.Encodervalue1) < pulses and abs(self.Encodervalue2) < pulses:
-                print(f"Motor 1: {self.Encodervalue1} | Motor 2: {self.Encodervalue2}")
-                utime.sleep_ms(50)
-
-            self.stop_motors()
 
     # Stop motors
     def stop_motors(self):
